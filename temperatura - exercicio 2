@@ -1,0 +1,37 @@
+import tkinter as tk
+from tkinter import messagebox
+import random
+import time
+
+class Temperatura:
+    def __init__(self):
+        self.temperaturaAtual= 25
+
+#Configuração da janelinha
+        self.janela = tk.Tk()
+        self.janela.title("Controle de Temperatura")
+        self.janela.geometry(f"{350}x{150}+100+100") 
+        self.rotulo = tk.Label(self.janela, text=f"Temperatura atual:{self.temperaturaAtual} graus celcius")
+        self.rotulo.pack(pady=40)
+
+#metodo para a mudança 
+    def mudancaTemperatura(self):
+      novaTemperatura = random.uniform(0, 45)
+      self.temperaturaAtual = round(novaTemperatura)
+      self.rotulo.config(text=f"Temperatura atual: {self.temperaturaAtual}")
+      self.sensor()
+
+
+    def sensor(self):
+        mensagem = f"Temperatura foi alterada para {self.temperaturaAtual} graus celcius!"
+        messagebox.showinfo("Temperatura alterada!", mensagem)
+
+    def executar(self):
+      self.janela.mainloop()
+
+mudanca = Temperatura()
+for _ in range(5):
+  mudanca.mudancaTemperatura()
+  time.sleep(3)
+
+
