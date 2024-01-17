@@ -1,0 +1,27 @@
+import tkinter as tk
+from tkinter import messagebox
+
+class Noticia:
+    def __init__(self):
+        self.noticia = ""
+
+        self.janela = tk.Tk()
+        self.janela.title("Jornal")
+        self.janela.geometry(f"{300}x{150}+100+100") 
+        self.rotulo = tk.Label(self.janela, text="Nova noticia disponível!:")
+        self.rotulo.pack(pady=40)
+        self.botao = tk.Button(self.janela, text="Clique aqui para receber",
+        command=self.novaNoticia)
+        self.botao.pack(pady=10)
+
+    def novaNoticia(self):
+        self.rotulo.config(text="Ultimas notícias: ")
+        self.notificar()
+
+
+    def notificar(self):
+        mensagem = "As novas meias de dedinhos fazem sucesso no Brasil!"
+        messagebox.showinfo("Ultimas notícias", mensagem)
+
+sistema1= Noticia()
+sistema1.janela.mainloop()
