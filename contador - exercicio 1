@@ -1,0 +1,29 @@
+import tkinter as tk
+from tkinter import messagebox
+
+class ContadorDeCliques:
+    def __init__(self):
+        self.contador = 0
+
+        # Configuração da janela
+        self.janela = tk.Tk()
+        self.janela.title("Contador de Cliques")
+        self.janela.geometry(f"{300}x{150}+100+100") 
+        self.rotulo = tk.Label(self.janela, text=f"Número de Cliques: {self.contador}")
+        self.rotulo.pack(pady=40)
+        self.botao = tk.Button(self.janela, text="Clique aqui",
+        command=self.aumentarContador)
+        self.botao.pack(pady=10)
+
+    def aumentarContador(self):
+        self.contador += 1
+        self.rotulo.config(text=f"Número de Cliques: {self.contador}")
+        self.notificar()
+
+
+    def notificar(self):
+        mensagem = f"O número de cliques mudou para {self.contador}!"
+        messagebox.showinfo("Contador de Cliques", mensagem)
+
+contador1= ContadorDeCliques()
+contador1.janela.mainloop()
