@@ -1,0 +1,48 @@
+from abc import ABC, abstractmethod
+
+# Componente base - Formulário
+class Formulario(ABC):
+    @abstractmethod
+    def render(self) -> str:
+        pass
+
+# ConcreteComponent - Formulário básico
+class FormularioBasico(Formulario):
+    def render(self) -> str:
+        return "Formulário básico"
+
+# Decorator - Campos
+class CampoDecorator(Formulario, ABC):
+    def __init__(self, formulario: Formulario):
+        self._formulario = formulario
+
+    @abstractmethod
+    def render(self) -> str:
+        pass
+
+# ConcreteDecorator - Campo de Texto
+class CampoTextoDecorator(CampoDecorator):
+    def render(self) -> str:
+        return f"{self._formulario.render()}, com campo de texto"
+
+# ConcreteDecorator - Campo de Seleção
+class CampoSelecaoDecorator(CampoDecorator):
+    def render(self) -> str:
+        return f"{self._formulario.render()}, com campo de seleção"
+
+# ConcreteDecorator - Campo de Data
+class CampoDataDecorator(CampoDecorator):
+    def render(self) -> str:
+        return f"{self._formulario.render()}, com campo de data"
+
+# Uso do padrão Decorator
+formulario_basico = FormularioBasico()
+formulario_com_campo_texto = CampoTextoDecorator(formulario_basico)
+formulario_com_campo_selecao = CampoSelecaoDecorator(formulario_basico)
+formulario_com_campo_data = CampoDataDecorator(formulario_basico)
+
+# Exemplo de renderização
+print("Formulário básico:", formulario_basico.render())
+print("Formulário com campo de texto:", formulario_com_campo_texto.render())
+print("Formulário com campo de seleção:", formulario_com_campo_selecao.render())
+print("Formulário com campo de data:", formulario_com_campo_data.render())
