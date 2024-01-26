@@ -1,0 +1,56 @@
+# a classe modelo vai fazer as alterações no banco
+class Modelo:
+  def cadastrar_elemento(self, elemento):
+      print(f"Cadastrando elemento: {elemento}")
+
+  def recuperar_elemento(self, id):
+      print(f"Recuperando elemento com ID {id}")
+
+  def atualizar_elemento(self, elemento):
+      print(f"Atualizando elemento: {elemento}")
+
+  def remover_elemento(self, id):
+      print(f"Removendo elemento com ID {id}")
+
+class Conexao:
+  def __init__(self, database_name):
+      self.database_name = database_name
+      print(f"Conectado ao banco de dados: {self.database_name}")
+
+class BaseDeDados:
+  def conectar(self, database_name):
+      return Conexao(database_name)
+
+  def desconectar(self, conexao):
+      print(f"Desconectando do banco de dados: {conexao.database_name}")
+
+
+# interface para interação com o banco de dados e os modelos 
+class Facade:
+  def __init__(self, database_name):
+      self.base_de_dados = BaseDeDados()
+      self.conexao = self.base_de_dados.conectar(database_name)
+      self.modelo = Modelo()
+
+  def finalizar_conexao(self):
+      self.base_de_dados.desconectar(self.conexao)
+
+  def realizar_operacoes(self):
+      elemento = "trabalho 1"
+      self.modelo.cadastrar_elemento(elemento)
+      self.modelo.recuperar_elemento(1)
+      self.modelo.atualizar_elemento(elemento)
+      self.modelo.remover_elemento(2)
+
+# interage a partir da classe facade
+class Cliente:
+  def __init__(self, facade):
+      self.facade = facade
+
+  def realizar_operacoes(self):
+      self.facade.realizar_operacoes()
+
+# criar o banco e chama os metodos
+cliente = Cliente(Facade("meu_banco_de_dados"))
+cliente.realizar_operacoes()
+cliente.facade.finalizar_conexao()
