@@ -1,0 +1,36 @@
+#interface do novo serviço 
+class SinalDigital:
+    def novo_sinal_de_tv(self):
+        print("Transmitindo novo sinal de TV digital")
+
+#serviço antigo com interface incompatível
+class SinalAnalogico:
+    def sinal_antigo_analogico(self):
+        print("Transmitindo sinal de TV analógico antigo")
+
+#adapter para conectar a interface do SinalDigital ao SinalAnalogico
+class AdapterServicoAntigo(SinalDigital):
+    def __init__(self, sinal_analogico):
+        self.sinal_analogico = sinal_analogico
+
+    def novo_sinal_de_tv(self):
+        print("Adaptando e transmitindo novo sinal de TV digital")
+
+#cliente que espera interagir com a interface do SinalDigital
+class Cliente:
+    def __init__(self, sinal_digital):
+        self.sinal_digital = sinal_digital
+
+    def realizar_operacoes(self):
+        pass  #a operação é chamada separada
+
+#adapter para o cliente utilizar o SinalAnalogico
+sinal_analogico = SinalAnalogico()
+adapter_servico_analogico = AdapterServicoAntigo(sinal_analogico)
+cliente = Cliente(adapter_servico_analogico)
+
+#primeiro chama o serviço antigo
+cliente.sinal_digital.sinal_analogico.sinal_antigo_analogico()
+
+#chama o serviço novo adaptado
+cliente.sinal_digital.novo_sinal_de_tv()
