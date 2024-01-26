@@ -1,0 +1,63 @@
+from abc import ABC, abstractmethod
+
+
+class FiguraGeometrica(ABC):
+    @abstractmethod
+    def render(self) -> str:
+        pass
+
+#figura geométrica simples
+class FiguraSimples(FiguraGeometrica):
+    def render(self) -> str:
+        return "Figura geométrica"
+
+#decorator - Cores
+class CorDecorator(FiguraGeometrica, ABC):
+    def __init__(self, figura: FiguraGeometrica, cor: str):
+        self._figura = figura
+        self._cor = cor
+
+    def render(self) -> str:
+        return f"{self._figura.render()} {self._cor}"
+
+#ConcreteDecorator - Cor Vermelha
+class CorVermelhaDecorator(CorDecorator):
+    def render(self) -> str:
+        return super().render()
+
+#ConcreteDecorator - Cor Verde
+class CorVerdeDecorator(CorDecorator):
+    def render(self) -> str:
+        return super().render()
+
+#ConcreteDecorator - Cor Azul
+class CorAzulDecorator(CorDecorator):
+    def render(self) -> str:
+        return super().render()
+
+#concreteDecorator - Cor Preta
+class CorPretaDecorator(CorDecorator):
+    def render(self) -> str:
+        return super().render()
+
+#ConcreteDecorator - Cor Branca
+class CorBrancaDecorator(CorDecorator):
+    def render(self) -> str:
+        return super().render()
+
+#padrão Decorator
+figura_simples = FiguraSimples()
+figura_com_cor_vermelha = CorVermelhaDecorator(figura_simples, "vermelha")
+figura_com_cor_verde = CorVerdeDecorator(figura_simples, "verde")
+figura_com_cor_azul = CorAzulDecorator(figura_simples, "azul")
+figura_com_cor_preta = CorPretaDecorator(figura_simples, "preta")
+figura_com_cor_branca = CorBrancaDecorator(figura_simples, "branca")
+
+
+
+print("Figura geométrica simples:", figura_simples.render())
+print("Figura com cor 1:", figura_com_cor_vermelha.render())
+print("Figura com cor 2:", figura_com_cor_verde.render())
+print("Figura com cor 3:", figura_com_cor_azul.render())
+print("Figura com cor 4:", figura_com_cor_preta.render())
+print("Figura com cor 5:", figura_com_cor_branca.render())
