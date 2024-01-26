@@ -1,0 +1,56 @@
+from abc import ABC, abstractmethod
+
+
+class Texto(ABC):
+    @abstractmethod
+    def render(self) -> str:
+        pass
+
+#criar o componente texto simples
+class TextoSimples(Texto):
+    def __init__(self, conteudo: str):
+        self._conteudo = conteudo
+
+    def render(self) -> str:
+        return self._conteudo
+
+# Decorator - Estilos
+class EstiloDecorator(Texto, ABC):
+    def __init__(self, texto: Texto):
+        self._texto = texto
+
+    @abstractmethod
+    def render(self) -> str:
+        pass
+
+#Negrito
+class NegritoDecorator(EstiloDecorator):
+    def render(self) -> str:
+        return f"<b>{self._texto.render()}</b>"
+
+#Itálico
+class ItalicoDecorator(EstiloDecorator):
+    def render(self) -> str:
+        return f"<i>{self._texto.render()}</i>"
+
+#Sublinhado
+class SublinhadoDecorator(EstiloDecorator):
+    def render(self) -> str:
+        return f"<u>{self._texto.render()}</u>"
+
+#Fonte
+class FonteDecorator(EstiloDecorator):
+    def __init__(self, texto: Texto, fonte: str):
+        super().__init__(texto)
+        self._fonte = fonte
+
+    def render(self) -> str:
+        return f'<font face="{self._fonte}">{self._texto.render()}</font>'
+
+#Uso do padrão Decorator
+texto_simples = TextoSimples("Exemplo de texto simples.")
+texto_modificado = FonteDecorator(SublinhadoDecorator(ItalicoDecorator(NegritoDecorator(texto_simples))), "Arial")
+
+# Exemplo de renderização
+print("Texto simples:", texto_simples.render())
+print("Texto decorado:", texto_modificado.render())
