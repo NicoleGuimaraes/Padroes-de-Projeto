@@ -1,6 +1,7 @@
 #Exercicio 2 - Desenvolva um sistema de urna eletrônica e boletim de urna para uma eleição. O sistema deve permitir que os eleitores votem em candidatos e que os votos sejam contabilizados e exibidos em um boletim em tempo real
 
 
+
 from abc import ABC, abstractmethod
 
 class Observer(ABC):
